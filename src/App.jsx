@@ -1,13 +1,26 @@
 import { useState } from 'react';
 
 import { Box, Button } from '@mui/material';
-import { ThemeProvider } from '@mui/material/styles';
 
 import { Timer } from './components/Timer';
+import { TimeOptions } from './components/TimeOptions';
 import { PlayPauseButton } from './components/PlayPauseButton';
 
 const App = () => {
-  const [time, setTime] = useState(15 * 60 + 10);
+  const [time, setTime] = useState(15 * 60);
+  const [paused, setPaused] = useState(true);
+
+  const handleSetTime = (seconds) => {
+    setTime(seconds)
+  }
+
+  const handleTimeOptionClick = (seconds) => {
+    setTime(seconds)
+  }
+
+  const handlePaused = () => {
+    setPaused(!paused)
+  }
 
   return(
       <Box
@@ -25,8 +38,9 @@ const App = () => {
           alignItems:'center'
         }}
       >
-        <Timer time={time} />
-        <PlayPauseButton />
+        <Timer time={time} handleSetTime={handleSetTime} paused={paused} />
+        <TimeOptions handleTimeOptionClick={handleTimeOptionClick} />
+        <PlayPauseButton paused={paused} handlePaused={handlePaused} />
       </Box>
   )
 }

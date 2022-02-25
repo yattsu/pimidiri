@@ -1,6 +1,27 @@
+import { useState, useEffect } from 'react';
 import { Typography } from '@mui/material';
+import { formatSeconds } from '../util';
 
-export const Timer = ({ time }) => {
+export const Timer = ({ time, handleSetTime, paused }) => {
+  const [intervalContainer, setIntervalContainer] = useState(null);
+
+  useEffect(() => {
+    if(!paused && !intervalContainer) {
+      const interval = setInterval(decrementTime, 1000);
+      setIntervalContainer(interval);
+    }
+
+    if(paused && intervalContainer) {
+      clearInterval(intervalContainer)
+      setIntervalContainer(null)
+    }
+  }, [paused])
+
+  const decrementTime = () => {
+    handleSetTime(time => time - 1);
+    console.log(time)
+  }
+
   return(
     <>
       <Typography
@@ -9,7 +30,7 @@ export const Timer = ({ time }) => {
         color='primary.light'
       >
         {
-          (Math.floor(time / 60) + ":" + ((time % 60).toString.length == 1 ? '0' + (time % 60) : time % 60))
+          formatSeconds(time)
         }
       </Typography>
     </>
