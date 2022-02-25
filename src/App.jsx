@@ -8,18 +8,27 @@ import { PlayPauseButton } from './components/PlayPauseButton';
 
 const App = () => {
   const [time, setTime] = useState(15 * 60);
-  const [paused, setPaused] = useState(true);
+  const [paused, setPaused] = useState(null);
 
   const handleSetTime = (seconds) => {
     setTime(seconds)
   }
 
   const handleTimeOptionClick = (seconds) => {
+    if (paused == false) {
+      return
+    }
+
     setTime(seconds)
+    setPaused(null)
   }
 
   const handlePaused = () => {
-    setPaused(!paused)
+    if(paused == null) {
+      setPaused(false)
+    } else {
+      setPaused(!paused)
+    }
   }
 
   return(

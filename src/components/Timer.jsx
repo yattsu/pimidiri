@@ -6,7 +6,7 @@ export const Timer = ({ time, handleSetTime, paused }) => {
   const [intervalContainer, setIntervalContainer] = useState(null);
 
   useEffect(() => {
-    if(!paused && !intervalContainer) {
+    if(paused == false && !intervalContainer) {
       const interval = setInterval(decrementTime, 1000);
       setIntervalContainer(interval);
     }
