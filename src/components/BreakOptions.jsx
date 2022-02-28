@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material';
-import { TimeOption } from './TimeOption';
+import { BreakOption } from './BreakOption';
 
-export const TimeOptions = ({ handleTimeOptionClick, isBreak }) => {
+export const BreakOptions = ({ handleBreakOptionClick, isBreak }) => {
   return(
     <>
       <Box
@@ -13,8 +13,11 @@ export const TimeOptions = ({ handleTimeOptionClick, isBreak }) => {
         <Typography
           variant='h5'
           color={isBreak ? 'warning.main' : 'primary.light'}
+          sx={{
+            textAlign:'left',
+          }}
         >
-          Time
+          Break
         </Typography>
         <Box
           display='flex'
@@ -25,9 +28,9 @@ export const TimeOptions = ({ handleTimeOptionClick, isBreak }) => {
             gap:'50px'
           }}
         >
-          <TimeOption handleTimeOptionClick={handleTimeOptionClick} seconds={25 * 60} isBreak={isBreak} />
-          <TimeOption handleTimeOptionClick={handleTimeOptionClick} seconds={35 * 60} isBreak={isBreak} />
-          <TimeOption handleTimeOptionClick={handleTimeOptionClick} seconds={45 * 60} isBreak={isBreak} />
+          <BreakOption handleBreakOptionClick={handleBreakOptionClick} seconds={5 * 60} isBreak={isBreak} />
+          <BreakOption handleBreakOptionClick={handleBreakOptionClick} seconds={10 * 60} isBreak={isBreak} />
+          <BreakOption handleBreakOptionClick={handleBreakOptionClick} seconds={15 * 60} isBreak={isBreak} />
         </Box>
       </Box>
     </>

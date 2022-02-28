@@ -2,8 +2,24 @@ import { useState, useEffect } from 'react';
 import { Typography } from '@mui/material';
 import { formatSeconds } from '../util';
 
-export const Timer = ({ time, handleSetTime, paused }) => {
+export const Timer = ({ time, lastTime, handleSetTime, isBreak, handleSetBreak, breakTime, paused, handlePaused, reset, handleSetReset, handlePlayBeep }) => {
   const [intervalContainer, setIntervalContainer] = useState(null);
+
+  useEffect(() => {
+    if(time == 0) {
+      handlePlayBeep()
+      handleSetBreak()
+      if(isBreak) {
+        resetTimer()
+      }
+    }
+  }, [time])
+
+  useEffect(() => {
+    if(isBreak) {
+      handleSetTime(breakTime)
+    }
+  }, [isBreak])
 
   useEffect(() => {
     if(paused == false && !intervalContainer) {
@@ -17,9 +33,24 @@ export const Timer = ({ time, handleSetTime, paused }) => {
     }
   }, [paused])
 
+  useEffect(() => {
+    if(!reset) {
+      return
+    }
+
+    resetTimer();
+  }, [reset])
+
+  const resetTimer = () => {
+    clearInterval(intervalContainer);
+    setIntervalContainer(null);
+    handleSetTime(lastTime);
+    handleSetReset(false);
+    handlePaused();
+  }
+
   const decrementTime = () => {
     handleSetTime(time => time - 1);
-    console.log(time)
   }
 
   return(
@@ -27,7 +58,7 @@ export const Timer = ({ time, handleSetTime, paused }) => {
       <Typography
         variant='h1'
         fontWeight='bold'
-        color='primary.light'
+        color={isBreak ? 'warning.main' : 'primary.light'}
       >
         {
           formatSeconds(time)
