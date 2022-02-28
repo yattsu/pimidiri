@@ -12,7 +12,7 @@ import { ResetButton } from './components/ResetButton';
 
 const App = () => {
   const [time, setTime] = useState(25 * 60);
-  const [lastTime, setLastTime] = useState(15 * 60);
+  const [lastTime, setLastTime] = useState(25 * 60);
   const [isBreak, setIsBreak] = useState(false);
   const [breakTime, setBreakTime] = useState(5 * 60);
   const [paused, setPaused] = useState(null);
